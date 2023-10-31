@@ -9,7 +9,25 @@
     <li class="nav-item" id="pe">
       <a class="nav-link" href="{% url 'person:list' %}">
         <i class="fas fa-fw fa-user-plus"></i>
-        <span>Personas</span>
+        <span>Donantes</span>
+      </a>
+    </li>
+    <li class="nav-item" id="pe">
+      <a class="nav-link" href="{% url 'donar:list' %}">
+        <i class="fa fa-sticky-note"></i>
+        <span>Donaciones</span>
+      </a>
+    </li>
+    <li class="nav-item" id="pe">
+      <a class="nav-link" href="{% url 'noticia:list' %}">
+        <i class="fa fa-bookmark"></i>
+        <span>Información</span>
+      </a>
+    </li>
+    <li class="nav-item" id="pe">
+      <a class="nav-link" href="{% url 'confi:list' %}">
+        <i class="fa fa-folder"></i>
+        <span>Configuración</span>
       </a>
     </li>
   {% endif %}

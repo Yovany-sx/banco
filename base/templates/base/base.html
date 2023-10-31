@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 {% load i18n %}
+{% load static %}
 {% get_current_language as LANGUAGE_CODE %}
 <html lang="{{ LANGUAGE_CODE|default:"es-ve" }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/ico" href="{% static 'icons/favicon.ico' %}">
+    <title>{% block title %}Inicio{% endblock %}</title>
+  </head>
   {% include 'base/head.html' %}
   <body id="page-top">
     {% include 'base/navbar.html' %}
@@ -29,12 +36,15 @@
               <div class="col-12">
                 <center>
                   {% if request.user.is_authenticated %}
-                    <p>Bienvenido {{ request.user.username }}.</p>
+                    <p><strong>Bienvenido {{ request.user.username }}.</strong></p>
                   {% else %}
-                    <p>Bienvenido al sistema.</p>
+                    <p><strong>Bienvenido al sistema.</strong></p>
                     <p>Inicie sesión para registrar los datos.</p>
                   {% endif %}
                 </center>
+                <div style="text-align: center;">
+                  <img src="{% static 'img/bienvenido.svg' %}" alt="Bienvenido" style="max-width: 100%; max-height: 60vh;">
+              </div>    
               </div>
             </div>
           {% endblock %}

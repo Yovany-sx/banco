@@ -22,7 +22,9 @@ urlpatterns = [
     path('', include('base.urls')),
     path('user/', include('user.urls')),
     path('person/', include('person.urls')),
-
+    path('donacion/', include('donar.urls')),
+    path('noticia/', include('noticia.urls')),
+    path('confi/', include('confi.urls')),
     path(
         'api-auth/',
         include('rest_framework.urls', namespace='rest_framework')

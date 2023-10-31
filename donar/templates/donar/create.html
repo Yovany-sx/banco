@@ -1,0 +1,114 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% block title %}Agregar donación{% endblock %}
+{% block breadcrumb %}
+  <li class="breadcrumb-item">
+    <a href="{% url 'donar:list' %}">Donaciones</a>
+  </li>
+  <li class="breadcrumb-item active">Registrar</li>
+{% endblock %}
+{% block content %}
+  <div class="card">
+    <div class="card-header">
+      {% if not form.instance.pk %}{% trans 'Registrar Donación' %}{% else %}{% trans 'Actualizar' %}{% endif %}
+    </div>
+    <form action="" role="form" class="form form-horizontal validate-form" method="post" autocomplete="off">
+      {% csrf_token %}
+      <div class="card-body">
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group {% if form.donante.errors %}has-error{% endif %}">
+              <label class="col-xl-5 col-lg-5 col-md-5 col-sm-5 control-label" for="{{ form.donante.auto_id }}">
+                {{ form.donante.label }}
+              </label>
+              <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7">
+                <div class="form-inline">
+                  {{ form.donante }}
+                  <i class="fas fa-asterisk item-required" aria-hidden="true"></i>
+                </div>
+                {% include 'base/form.errors.html' with form_errors=form.donante.errors col_title_error='col-sm-4' col_msg_error='col-sm-8' %}
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group {% if form.grupo_sanguineo.errors %}has-error{% endif %}">
+              <label class="col-xl-5 col-lg-5 col-md-5 col-sm-5 control-label" for="{{ form.grupo_sanguineo.auto_id }}">
+                {{ form.grupo_sanguineo.label }}
+              </label>
+              <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7">
+                <div class="form-inline">
+                  {{ form.grupo_sanguineo }}
+                  <i class="fas fa-asterisk item-required" aria-hidden="true"></i>
+                </div>
+                {% include 'base/form.errors.html' with form_errors=form.grupo_sanguineo.errors col_title_error='col-sm-4' col_msg_error='col-sm-8' %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group {% if form.quantity.errors %}has-error{% endif %}">
+              <label class="col-xl-5 col-lg-5 col-md-5 col-sm-5 control-label" for="{{ form.quantity.auto_id }}">
+                {{ form.quantity.label }}
+              </label>
+              <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7">
+                <div class="form-inline">
+                  <input type="number" name="{{ form.quantity.name }}" value="{{ form.quantity.value }}" step="0.1" class="form-control">
+                  <i style="cursor: pointer;" onclick="incrementValue('{{ form.quantity.auto_id }}')"></i>
+                  <i style="cursor: pointer;" onclick="decrementValue('{{ form.quantity.auto_id }}')"></i>
+                  <i class="fas fa-asterisk item-required" aria-hidden="true"></i>
+                </div>
+                {% include 'base/form.errors.html' with form_errors=form.quantity.errors col_title_error='col-sm-4' col_msg_error='col-sm-8' %}
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group {% if form.date.errors %}has-error{% endif %}">
+              <label class="col-xl-5 col-lg-5 col-md-5 col-sm-5 control-label" for="{{ form.date.auto_id }}">
+                {{ form.date.label }}
+              </label>
+              <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7">
+                <div class="form-inline">
+                  <input type="date" name="{{ form.date.name }}" id="{{ form.date.id }}" value="{{ form.date.value }}" class="form-control">
+                  <i class="fas fa-asterisk item-required" aria-hidden="true"></i>
+                </div>
+                {% include 'base/form.errors.html' with form_errors=form.date.errors col_title_error='col-sm-4' col_msg_error='col-sm-8' %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agrega más campos de formulario aquí según sea necesario -->
+      </div>
+
+      <div class="card-footer small text-right">
+        <button type="reset" class="btn btn-primary btn-sm" data-toggle="tooltip">{% trans 'Limpiar' %}</button>
+        <button type="submit" class="btn btn-primary btn-sm" data-toggle="tooltip">{% if not form.instance.pk %}{% trans 'Registrar' %}{% else %}{% trans 'Actualizar' %}{% endif %}</button>
+      </div>
+    </form>
+  </div>
+  <br>
+{% endblock %}
+
+<script>
+  function incrementValue(fieldId) {
+    const field = document.getElementById(fieldId);
+    if (field.value >= 0) { // Verificar que el valor no sea negativo
+      field.stepUp();
+    }
+  }
+
+  function decrementValue(fieldId) {
+    const field = document.getElementById(fieldId);
+    if (field.value > 0) { // Verificar que el valor no sea negativo
+      field.stepDown();
+    }
+  }
+</script>

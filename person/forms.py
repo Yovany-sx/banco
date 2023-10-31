@@ -22,7 +22,7 @@ class PersonForm(forms.ModelForm):
             attrs={
                 'class': 'form-control form-control-sm',
                 'data-toggle': 'tooltip',
-                'title': _('Indique los Nombres de la Persona'),
+                'title': _('Ingrese su nombre/s'),
             }
         )
     )
@@ -35,34 +35,36 @@ class PersonForm(forms.ModelForm):
             attrs={
                 'class': 'form-control form-control-sm',
                 'data-toggle': 'tooltip',
-                'title': _('Indique los Apellidos de la Persona'),
+                'title': _('Ingrese su apellido/s'),
             }
         )
     )
 
     # Cédula de identidad
     identification_card = forms.CharField(
-        label=_('Cédula:'),
-        max_length=9,
+        label=_('DPI:'),
+        max_length=13,
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control form-control-sm',
+                'placeholder': 'Número de DPI',
                 'data-toggle': 'tooltip',
-                'title': _('Indique la Cédula de la Persona'),
+                'title': _('Ingrese su número de DPI'),
             }
-        )
+        ),
+        help_text=_('Ingrese su número de DPI sin espacion ni guiones')
     )
 
     # Número telefónico
     phone = forms.CharField(
         label=_('Teléfono:'),
-        max_length=15,
+        max_length=8,
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control form-control-sm',
-                'placeholder': '+58-000-0000000',
-                'data-toggle': 'tooltip', 'data-mask': '+00-000-0000000',
-                'title': _('Indique el número telefónico de contacto'),
+                'placeholder': 'Número de teléfono', 
+                'data-toggle': 'tooltip',
+                'title': _('Ingrese su número de teléfono'),
             }
         ),
         help_text=_('(país)-área-número')
@@ -83,14 +85,14 @@ class PersonForm(forms.ModelForm):
         )
     )
 
-    # Estado
+    # Departamento
     state = forms.ModelChoiceField(
-        label=_('Estado:'), queryset=State.objects.all(),
+        label=_('Departamento:'), queryset=State.objects.all(),
         empty_label=_('Seleccione...'),
         widget=forms.Select(attrs={
             'class': 'form-control form-control-sm select2',
             'data-toggle': 'tooltip',
-            'title': _('Seleccione el estado donde se encuentra ubicada'),
+            'title': _('Seleccione el departamento donde se encuentra ubicado'),
             'onchange': "combo_update(\
                 this.value, 'base', 'Municipality', 'state', 'pk', 'name',\
                 'id_municipality')",
@@ -112,12 +114,12 @@ class PersonForm(forms.ModelForm):
 
     # Parroquia
     parish = forms.ModelChoiceField(
-        label=_('Parroquia:'), queryset=Parish.objects.all(),
+        label=_('Cantón/Aldea:'), queryset=Parish.objects.all(),
         empty_label=_('Seleccione...'),
         widget=forms.Select(attrs={
             'class': 'form-control form-control-sm select2',
             'data-toggle': 'tooltip', 'disabled': 'true',
-            'title': _('Seleccione la parroquia donde se encuentra ubicada'),
+            'title': _('Seleccione el Cantón o Aldea donde se encuentra ubicada'),
         })
     )
 

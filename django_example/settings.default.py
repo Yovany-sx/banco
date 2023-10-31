@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'base',
     'user.apps.UserConfig',
     'person.apps.PersonConfig',
+    'donar.apps.PersonConfig',
+    'noticia.apps.PersonConfig',
+    'confi.apps.PersonConfig',
 ]
 
 MIDDLEWARE = [

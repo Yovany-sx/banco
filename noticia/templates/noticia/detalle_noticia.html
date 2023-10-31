@@ -1,0 +1,14 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% block title %}Información{% endblock %}
+{% block content %}
+  <div class="container">
+    <h1>{{ noticia.titulo }}</h1>
+    <p>Fecha de publicación: {{ noticia.fecha_publicacion }}</p>
+    <div class="noticia-contenido">
+      {{ noticia.contenido_formateado | safe }}
+    </div>
+    <a href="{% url 'noticia:list' %}">Volver a la lista de noticias</a>
+  </div>
+</div>
+{% endblock %}

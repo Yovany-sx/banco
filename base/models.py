@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils.translation import gettext_lazy as _
 
 class Country(models.Model):
     """!
@@ -25,6 +25,10 @@ class Country(models.Model):
 
         return self.name
 
+    class Meta:
+        
+        verbose_name = _('País')
+        verbose_name_plural = _('Paises')
 
 class State(models.Model):
     """!
@@ -53,6 +57,10 @@ class State(models.Model):
 
         return self.name
 
+    class Meta:
+        
+        verbose_name = _('Departamento')
+        verbose_name_plural = _('Departamentos')
 
 class Municipality(models.Model):
     """!
@@ -80,6 +88,11 @@ class Municipality(models.Model):
         """
 
         return self.name
+    
+    class Meta:
+        
+        verbose_name = _('Municipio')
+        verbose_name_plural = _('Municipios')
 
 
 class City(models.Model):
@@ -138,3 +151,12 @@ class Parish(models.Model):
         """
 
         return self.name
+    
+    class Meta:
+        """!
+        Meta clase del modelo que establece algunas propiedades
+
+        """
+
+        verbose_name = _('Aldea/Cantón')
+        verbose_name_plural = _('Cantones')

@@ -1,0 +1,29 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}Algo salio mal{% endblock %}
+{% block breadcrumb %}
+  <li class="breadcrumb-item active">
+    Configuración
+  </li>
+{% endblock %}
+{% block content %}
+
+    <h1><strong>Configuración</strong></h1>
+    <body>
+        <div style="text-align: center;">
+            <img src="{% static 'img/en_mantenimiento.svg' %}" alt="En Mantenimiento" style="max-width: 100%; max-height: 40vh;">
+            <h1>Apartado en Desarrollo :)</h1>
+            <p>Regresaremos pronto.</p>
+        </div>        
+    </body>
+
+{% endblock %}
+{% block extra_footer %}
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var table = $('#table').DataTable();
+      button_datatable(table);
+    });
+  </script>
+{% endblock %}

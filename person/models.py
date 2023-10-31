@@ -9,9 +9,7 @@ class Person(models.Model):
     """!
     Clase que contiene las personas
 
-    @author William Páez (paez.william8 at gmail.com)
-    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
-        GNU Public License versión 2 (GPLv2)</a>
+  
     """
 
     # Nombre
@@ -22,28 +20,28 @@ class Person(models.Model):
 
     # Cédula de identidad
     identification_card = models.CharField(
-        'cédula de identidad',
-        max_length=9,
-        validators=[
-            validators.RegexValidator(
-                r'^[VE][\d]{8}$',
-                _('Introduzca un número de cédula válido. Solo se permiten\
-                números y una longitud de 8 carácteres. Se agrega un 0 si la \
-                longitud es de 7 carácteres.')
-            ),
-        ], unique=True
+        'dpi',
+        max_length=13,
+        # validators=[
+        #     validators.RegexValidator(
+        #         r'^[VE][\d]{8}$',
+        #         _('Introduzca un número de cédula válido. Solo se permiten\
+        #         números y una longitud de 8 carácteres. Se agrega un 0 si la \
+        #         longitud es de 7 carácteres.')
+        #     ),
+        # ], unique=True
     )
 
     # Número telefónico
     phone = models.CharField(
         'teléfono',
-        max_length=15,
-        validators=[
-            validators.RegexValidator(
-                r'^\+\d{2}-\d{3}-\d{7}$',
-                _('Número telefónico inválido. Solo se permiten números.')
-            ),
-        ]
+        max_length=8,
+        # validators=[
+        #     validators.RegexValidator(
+        #         r'd{4}-\d{4}$',
+        #         _('Número telefónico inválido. Solo se permiten números.')
+        #     ),
+        # ]
     )
 
     # Correo electrónico
@@ -56,7 +54,7 @@ class Person(models.Model):
 
     # Relación entre la persona y la parroquia
     parish = models.ForeignKey(
-        Parish, on_delete=models.CASCADE, verbose_name='parroquia'
+        Parish, on_delete=models.CASCADE, verbose_name='Cantón/Aldea'
     )
 
     # Relación entre la persona y el usuario del sistema
@@ -74,8 +72,8 @@ class Person(models.Model):
             cédula de identidad
         """
 
-        return '%s %s, %s' % (
-            self.first_name, self.last_name, self.identification_card
+        return '%s %s' % (
+            self.first_name, self.last_name
         )
 
     class Meta:
@@ -85,5 +83,54 @@ class Person(models.Model):
         @author William Páez (paez.william8 at gmail.com)
         """
 
-        verbose_name = _('Persona')
-        verbose_name_plural = _('Personas')
+        verbose_name = _('Donante')
+        verbose_name_plural = _('Donantes')
+
+class Factor(models.Model):  # +    - 
+    factor = models.CharField(max_length=10)
+    
+    def __str__(self):
+        return self.factor
+    
+    class Meta:
+        """!
+        Meta clase del modelo que establece algunas propiedades
+
+        """
+
+        verbose_name = _('Factor')
+        verbose_name_plural = _('Factores')
+    
+class Grupo_sanguineo(models.Model): # A -
+    tipo = models.CharField(max_length=150)
+    factor=models.ForeignKey(Factor, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.tipo} {self.factor}"
+    
+    class Meta:
+        """!
+        Meta clase del modelo que establece algunas propiedades
+
+        """
+
+        verbose_name = _('Grupo')
+        verbose_name_plural = _('Grupos Sanguineos')
+
+class Donacion(models.Model):
+    quantity=models.FloatField('cantidad')
+    date=models.DateField('fecha_donacion',auto_now_add=False)
+    donante=models.ForeignKey(Person, on_delete=models.CASCADE, null=True, blank=True)
+    grupo_sanguineo=models.ForeignKey(Grupo_sanguineo, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return '%s, %s, %s, %s' % (self.donante, self.grupo_sanguineo, self.quantity, self.date)
+    
+    class Meta:
+        """!
+        Meta clase del modelo que establece algunas propiedades
+
+        """
+
+        verbose_name = _('Donacion')
+        verbose_name_plural = _('Donaciones')
